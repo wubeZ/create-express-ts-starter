@@ -1,0 +1,10 @@
+dist
+.github
+coverage
+node_modules/
+.idea
+
+README.md
+tsconfig.json
+package-lock.json
+*.DS_Store
