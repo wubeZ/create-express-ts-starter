@@ -1,6 +1,6 @@
 {
   "name": "create-express-ts-starter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "starter boilerplate with Typescript + Express + Mongoose + MongoDB + Pino + Jest",
   "bin": "./bin/script.js",
   "main": "dist/server.js",
