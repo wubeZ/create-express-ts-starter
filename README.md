@@ -21,7 +21,7 @@ To get started with Create Express TypeScript Starter, follow these steps:
 1. Use `npx` to create a new project based on the starter:
 
    ```sh
-   npx wubshet_zeleke/create-express-ts-starter your_project_name
+   npx @easy-starters/create-express-ts-starter your_project_name
    ```
    This command will create a new directory with the specified name (your_repo_name), set up the project inside it, and install all the dependencies.
 2. Navigate into the newly created directory:
