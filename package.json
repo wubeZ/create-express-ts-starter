@@ -27,7 +27,12 @@
     "mongodb",
     "atlas",
     "pino",
-    "jest"
+    "jest",
+    "eslint",
+    "prettier",
+    "husky",
+    "nodemon",
+    "supertest"
   ],
   "author": "Wubshet Zeleke",
   "license": "ISC",
