@@ -1,9 +1,13 @@
 {
   "name": "@easy-starters/create-express-ts-starter",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "starter boilerplate with Typescript + Express + Mongoose + MongoDB + Pino + Jest",
   "bin": "./bin/script.js",
   "main": "dist/server.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wubeZ/create-express-ts-starter.git"
+  },
   "scripts": {
     "dev": "nodemon src/server.ts | npx pino-pretty",
     "start": "node dist/src/server.js | npx pino-pretty",
