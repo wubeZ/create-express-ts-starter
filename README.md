@@ -92,7 +92,7 @@ The project follows a customized folder structure to organize its source code an
 - **.env.example**: Example environment variables file.
 - **.gitignore**: Git ignore rules.
 - **eslint.config.mjs**: ESLint flat configuration.
-- **vitest.config.ts**: Vitest configuration file.
+- **vitest.config.mts**: Vitest configuration file.
 - **tests/**: Vitest + Supertest tests.
 - **package.json**: Node.js dependencies and scripts.
 - **README.md**: Project documentation.
