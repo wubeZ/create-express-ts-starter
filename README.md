@@ -2,6 +2,8 @@
 
 Create Express TypeScript Starter is a boilerplate project designed to help you quickly set up a new Express.js project with TypeScript. It includes pre-configured settings and dependencies for a seamless development experience.
 
+**Requirements:** Node.js 22.13 or newer and a MongoDB instance (local or Atlas).
+
 ## Table of Contents
 
 - [Getting Started](#getting-started)
@@ -9,6 +11,7 @@ Create Express TypeScript Starter is a boilerplate project designed to help you 
 - [Customization](#customization)
 - [Custom Folder Structure](#custom-folder-structure)
 - [Features](#features)
+- [What's New in v2](#whats-new-in-v2)
 - [Contributing](#contributing)
 - [Credits](#credits)
 - [License](#license)
@@ -23,14 +26,18 @@ To get started with Create Express TypeScript Starter, follow these steps:
    ```sh
    npx @easy-starters/create-express-ts-starter your_project_name
    ```
-   This command will create a new directory with the specified name (your_repo_name), set up the project inside it, and install all the dependencies.
+   This command will create a new directory with the specified name (your_project_name), set up the project inside it with a fresh git repository, and install all the dependencies.
 2. Navigate into the newly created directory:
 
    ```sh
    cd your_project_name
    ```
-3. Change some values in package.json to meet your project needs. You can modify the project name, description, author, and other configurations as necessary.
-4. Create `.env` file using the provided example in `.env.example`.
+3. Change some values in package.json to meet your project needs. The project name is already set; you can add a description, author, and other configurations as necessary.
+4. Create a `.env` file from the provided example and point `MONGO_URI` at your database:
+
+   ```sh
+   cp .env.example .env
+   ```
 5. Customize the README file to provide information specific to your project.
 6. Start the development server:
 
@@ -44,29 +51,25 @@ To get started with Create Express TypeScript Starter, follow these steps:
 
 After setting up your project, you can use the provided scripts and configuration to start developing your Express application. Here are the scripts below:
 
-- **`npm run dev`:**  Start the development server with hot reloading.
+- **`npm run dev`:**  Start the development server with hot reloading (tsx) and pretty logs.
 
-- **`npm run start`:**  Run the production build of the project.
-
-- **`npm run test`:**  Run all tests.
-
-- **`npm run test-coverage`:**  Run all tests and generate code coverage report.
-
-- **`npm run debug-test`:**  Run tests in debug mode with detection of open handles.
-
-- **`npm run debug-test-coverage`:**  Run tests in debug mode with detection of open handles and generate code coverage report.
-
-- **`npm run lint`:**  Run ESLint to lint TypeScript files.
-
-- **`npm run lint:fix`:**  Run ESLint to lint TypeScript files and automatically fix fixable issues.
+- **`npm run start`:**  Run the production build of the project (`dist/server.js`).
 
 - **`npm run build`:**  Build the project for production.
 
-- **`npm run prettier-watch`:**  Automatically format TypeScript files using Prettier on file change.
+- **`npm run test`:**  Run all tests once with Vitest.
+
+- **`npm run test:watch`:**  Run tests in watch mode.
+
+- **`npm run test-coverage`:**  Run all tests and generate a code coverage report.
+
+- **`npm run lint`:**  Run ESLint on the project.
+
+- **`npm run lint:fix`:**  Run ESLint and automatically fix fixable issues.
 
 - **`npm run prettier:fix`:**  Format all TypeScript files using Prettier.
 
-- **`npm run prepare`:**  Trigger Husky to set up Git hooks.
+- **`npm run prepare`:**  Trigger Husky to set up Git hooks (runs automatically on install).
 
 
 ## Customization
@@ -77,18 +80,20 @@ Create Express TypeScript Starter can be customized to fit your specific require
 
 The project follows a customized folder structure to organize its source code and resources efficiently. Here's an overview of the folder structure:
 
-- **src/common/**: Contains common files and utilities used across the project, such as `env.ts` for managing environment variables and `logger.ts` for logging.
+- **src/common/**: Contains common files and utilities used across the project, such as `logger.ts` for logging and `routes.ts` for the top-level router.
 - **src/resources/**: Contains resources organized by domain, with each resource folder containing `model.ts`, `interface.ts`, `controller.ts`, and `routes.ts` files for that specific resource.
-- **src/middlewares/**: Contains middleware functions used in the Express application.
-- **src/services/**: Contains configuration files and other service-related modules used in the project.
-- **src/server.ts**: Entry point for the Express server.
+- **src/middlewares/**: Contains middleware functions used in the Express application, including the 404 and error handlers.
+- **src/services/**: Contains service modules such as `db.ts`, which exposes `connectDB()` / `disconnectDB()`.
+- **src/server.ts**: Entry point: connects to MongoDB, starts the server, and shuts down gracefully.
 - **src/app.ts**: Defines the Express application.
 
 ### Additional Files
 
 - **.env.example**: Example environment variables file.
 - **.gitignore**: Git ignore rules.
-- **jest.config.js**: Jest configuration file.
+- **eslint.config.mjs**: ESLint flat configuration.
+- **vitest.config.ts**: Vitest configuration file.
+- **tests/**: Vitest + Supertest tests.
 - **package.json**: Node.js dependencies and scripts.
 - **README.md**: Project documentation.
 - **tsconfig.json**: TypeScript configuration file.
@@ -97,16 +102,25 @@ This folder structure provides a clear organization for the project's source cod
 
 ## Features
 
-- **TypeScript Support:** Write your Express application using TypeScript for enhanced type safety and developer productivity.
-- **Express.js Integration:** Utilize the powerful features of Express.js to build robust and scalable web applications.
-- **Mongoose Integration:** Seamlessly connect your Express application to MongoDB databases using Mongoose for data modeling and interaction.
-- **Pino Logging:** Benefit from fast and efficient logging with Pino, a low-overhead Node.js logger.
-- **Jest Testing:** Write and run tests for your application using Jest, a delightful JavaScript testing framework.
-- **Nodemon Development:** Use Nodemon for automatic server restarts during development for a smooth development experience.
-- **Prettier Formatting:** Maintain consistent code style and formatting with Prettier, an opinionated code formatter.
-- **Husky Git Hooks:** Enforce code quality and standards with Husky pre-commit hooks for linting and formatting checks.
-- **GitHub Actions CI:** Set up continuous integration with GitHub Actions to automate testing and deployment workflows.
+- **TypeScript Support:** Write your Express application in strict TypeScript for enhanced type safety and developer productivity.
+- **Express 5:** Built on Express 5, with async errors forwarded to a central error handler.
+- **Mongoose Integration:** Connect to MongoDB databases using Mongoose for data modeling and interaction.
+- **Pino Logging:** Fast, structured logging with Pino (pretty-printed in development).
+- **Vitest Testing:** Write and run tests with Vitest and Supertest.
+- **tsx Development:** Hot reloading during development with tsx, no build step needed.
+- **ESLint + Prettier:** Consistent code style with ESLint (flat config) and Prettier.
+- **Husky + lint-staged:** Pre-commit hooks lint and format staged files and run the tests.
+- **GitHub Actions CI:** Lint, build, and test on Node 22 and 24 for every push and pull request.
 
+## What's New in v2
+
+- Upgraded to Express 5, Mongoose 9, Pino 10, Helmet 8, ESLint 10 and TypeScript 6 (strict mode).
+- Replaced Jest with Vitest, and nodemon + ts-node with tsx.
+- `.env` is loaded by Node's built-in `--env-file` support, so `dotenv` is gone.
+- The server waits for the database before listening, exits cleanly if it can't connect, and no longer logs your connection string.
+- Added a central error handler (500 for unexpected errors, correct 4xx for bad requests).
+- `npm start` now runs `dist/server.js`.
+- The CLI now creates projects from a pinned release tag, renames the project in `package.json`, and initializes a fresh git repository.
 
 ## Contributing
 
@@ -121,4 +135,4 @@ Contributions to Create Express TypeScript Starter are welcome! To contribute, p
 Create Express TypeScript Starter was created by [Wubshet Zeleke](https://linkedin.com/in/wubshet-zeleke) and is maintained by the open-source community.
 
 ## License
-Create Express TypeScript Starter is licensed under the MIT License.
+Create Express TypeScript Starter is licensed under the [MIT License](LICENSE).
