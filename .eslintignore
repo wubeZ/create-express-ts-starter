@@ -1,6 +1,0 @@
-dist
-.eslintrc.js
-.prettierrc.js
-coverage
-build
-node_modules
